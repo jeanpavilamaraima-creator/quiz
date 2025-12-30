@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Flag Quiz</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            /* Fondo Animado */
+            background: linear-gradient(-45deg, #79b8f7, #3657cf, #23d541, #e74c3c);
+            background-size: 400% 400%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            animation: gradient 15s ease-in infinite;
+            color: white;
+        }
+
+        @keyframes gradient{
+            0%{ background-position: 0% 50%; }
+            50%{ background-position: 100% 50%; }
+            100%{ background-position: 0% 50%; }
+        }
+
+        .container{
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+            width: 90%;
+        }
+
+        h1 { font-size: 2.5em; margin-bottom: 10px; }
+        h2 { font-size: 1.5em; margin-top: 30px; margin-bottom: 15px; }
+
+        a.button {
+            display: inline-block;
+            padding: 15px 25px;
+            font-size: 24px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px #999;
+            margin: 10px;
+            transition: all 0.2s;
+        }
+        a.button:hover {background-color: #3e8e41}
+        a.button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 2px #666;
+            transform: translateY(3px);
+        }
+
+        .continent-buttons a.button {
+            font-size: 18px;
+            padding: 10px 15px;
+            margin: 5px;
+        }
+
+        hr { border-color: rgba(255, 255, 255, 0.3); margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>¡Bienvenido al Quiz de Países! 🌎</h1>
+        <p>Elige un modo de juego principal o una región específica.</p>
+        
+        <a href="/quiz" class="button">Start **World Flag Quiz**</a>
+        
+        <br>
+        <a href="/countries" class="button" style="background-color: #3498db; margin-top: 20px; font-size: 18px;">View All Countries & Data</a>
+        <a href="/info/continents_data" class="button" style="background-color: #9b59b6; margin-top: 20px; font-size: 18px;">View Continents Data</a>
+        
+        <hr>
+        
+        <h2>O, elige un quiz por continente:</h2>
+        <div class="continent-buttons">
+            <a href="/quiz/Africa" class="button" style="background-color: #f1c40f;">Africa</a>
+            <a href="/quiz/America" class="button" style="background-color: #e74c3c;">America</a>
+            <a href="/quiz/Asia" class="button" style="background-color: #1abc9c;">Asia</a>
+            <a href="/quiz/Europe" class="button" style="background-color: #9b59b6;">Europe</a>
+            <a href="/quiz/Oceania" class="button" style="background-color: #3498db;">Oceania</a>
+        </div>
+        
+    </div>
+</body>
+</html>

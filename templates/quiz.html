@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Flag Quiz</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            /* PALETA: Violeta, Rosa, Azul Cian, Menta */
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            color: white;
+            text-align: center;
+            padding-top: 50px;
+            margin: 0;
+            min-height: 100vh;
+            animation: gradient 600s ease infinite; 
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        img {
+            border: 2px solid white;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #2ecc71;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #27ad60;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .correct { color: #2ecc71; }
+        .incorrect { color: #e74c3c; }
+        .game-over { color: #f1c40f; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Guess the Flag</h1>
+        
+        {% if game_over %}
+            <p class="game-over">Game Over! You ran out of attempts.</p>
+            <p>The correct answer was: {{ country.name }}</p>
+            <a href="/quiz/{{ continent if continent else '' }}"><button>Try Again</button></a>
+            <a href="/"><button style="background-color: #7f8c8d;">Return to Main Page</button></a>
+        
+        {% else %}
+            <img src="https://flagcdn.com/w320/{{ country.code }}.png" alt="Country Flag">
+            <form action="/quiz/{{continent}}" method="post">
+                <input type="text" name="guess" placeholder="Enter country name" autocomplete="off" required autofocus>
+                <button type="submit">Guess</button>
+            </form>
+            
+            {% if message %}
+                <p class="message {{ 'correct' if 'Correct' in message else 'incorrect' }}">{{ message }}</p>
+            {% endif %}
+            
+            <p style="margin-top:20px;">Attempts remaining: {{ attempts_left }}</p>
+            
+            <a href="/" onclick="return confirm('¿Quieres ir al inicio de la página y salir del juego? Perderás el progreso actual.');">
+                <button style="background-color: #e74c3c; margin-top: 20px;">Exit Game</button>
+            </a>
+
+            <script>
+                // 1. Neutralizar la entrada de historial inicial.
+                history.replaceState(null, null, location.href);
+        
+                // 2. Bloquear el botón "Atrás".
+                window.addEventListener('popstate', function(event) {
+                    history.pushState(null, null, location.href);
+                });
+        
+                // 3. Forzar recarga si viene de la caché (bfcache) para recuperar los intentos correctos.
+                window.addEventListener('pageshow', function(event) {
+                    if (event.persisted) {
+                        window.location.reload();
+                    }
+                });
+            </script>
+        
+        {% endif %} </div>
+</body>
+</html>
