@@ -38,8 +38,14 @@ async def continents_view(request: Request):
         "continents": continents
     })
 
-@information_router.get("/Country")
-async def countries_info(request:Request):
-    data_country = []
+@information_router.get("/country/{country_name}", response_class=HTMLResponse)
+async def country_detail(request: Request, country_name: str):
+    country = next((c for c in countries_db_list if c["name"].lower() == country_name.lower()), None)
+    if not country:
+        return RedirectResponse("/countries", status_code=303)
+    return templates.TemplateResponse("datos_pais.html", {
+        "request": request,
+        "country": country
+    })
     
 

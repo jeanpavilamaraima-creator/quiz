@@ -67,11 +67,8 @@
 </head>
 <body>
     <nav>
-        <a href="/">All</a>
-        {% for continent in continents %}
-        <a href="/continent/{{ continent }}">{{ continent }}</a>
-        {% endfor %}
-        <a href="/info/continents_data"> Continents </a>
+        <a href="/">Home</a>
+        <a href="/info/continents_data">Continents</a>
     </nav>
 
     <div class="content-wrapper">
@@ -102,7 +99,7 @@
             </thead>
             <tbody>
                 {% if countries|length == 0 %}
-                    <tr><td colspan="5" style="text-align:center;">No countries found.</td></tr>
+                    <tr><td colspan="6" style="text-align:center;">No countries found.</td></tr>
                 {% else %}
                     {% for country in countries %}
                     <tr>
@@ -111,8 +108,9 @@
                         <td>{{ country.capital }}</td>
                         <td>{{ "{:,.0f}".format(country.population) }}</td>
                         <td>{{ country.is_developed if country.is_developed is not none else 'N/A' }}</td>
-                        <td> {{ countries.name}} > <button style="background-color: #e74c3c;"> About the Country </button>
-                    </td>
+                        <td>
+                            <a href="/info/country/{{ country.name | urlencode }}"><button style="background-color: #e74c3c;">About the Country</button></a>
+                        </td>
                     </tr>
                     {% endfor %}
                 {% endif %}
